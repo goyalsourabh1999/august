@@ -16,7 +16,8 @@ mongoose
 const planSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Please enter Name of the plan"]
+    required: [true, "Please enter Name of the plan"],
+    unique: true
   },
   rating: {
     type: Number,
@@ -29,6 +30,18 @@ const planSchema = new mongoose.Schema({
   description: {
     type: String,
     default: "Good Plan"
+  },
+  prefrence: {
+    type: String,
+    enum: ["Vegan", "Vegetarian", "Non-Veg", "Eggiterian"]
+  },
+  price: {
+    type: Number,
+    min: 40
+  },
+  duration: {
+    type: Number,
+    default: 30
   }
 });
 // model

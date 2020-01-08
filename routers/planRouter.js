@@ -7,6 +7,7 @@ const {
   updatePlan,
   createPlan,checkInput
 } = require("../controllers/planController");
+// api/plans => post
 planRouter
   .route("")
   .get(getAllPlans)
