@@ -2,35 +2,14 @@ const express = require("express");
 const app = express();
 const users = require("./data/users");
 const planRouter = require("./routers/planRouter");
-// const userRouter = require("./routers/userRouter");
+const userRouter = require("./routers/userRouter");
 // converts buffer to json
 
 app.use(express.json());
 
 app.use("/api/plans", planRouter);
-// app.use("/api/users", userRouter);
+app.use("/api/users", userRouter);
 
-const createUser = function(req, res) {
-  const plan = req.body;
-  user.id = users.length + 1;
-  users.push(user);
-  res.json({
-    users
-  });
-};
-const getAllUsers = function(req, res) {
-  res.json({
-    users: users
-  });
-};
-
-// chaining
-// plans
-
-app
-  .route("/api/users")
-  .get(getAllUsers)
-  .post(createUser);
 
 // app.get("/plans",);
 // createPlans

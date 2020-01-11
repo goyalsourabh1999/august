@@ -5,13 +5,17 @@ const {
   getAllPlans,
   getPlan,
   updatePlan,
-  createPlan,checkInput
+  createPlan,
+  checkInput,
+  queryAdder
 } = require("../controllers/planController");
 // api/plans => post
+
 planRouter
   .route("")
   .get(getAllPlans)
-  .post(checkInput,createPlan);
+  .post(checkInput, createPlan);
+planRouter.route("/best-5-plans").get(queryAdder, getAllPlans);
 planRouter
   .route("/:id")
   .patch(updatePlan)

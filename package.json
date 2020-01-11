@@ -12,7 +12,9 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.8.4"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.4",
+    "validator": "^12.1.0"
   },
   "devDependencies": {}
 }

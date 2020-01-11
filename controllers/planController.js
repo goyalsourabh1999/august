@@ -1,5 +1,6 @@
 // const plans = require("../data/plans");
 const planModel = require("../models/planModel");
+
 module.exports.checkInput = function(req, res, next) {
   // console.log(req.body);
   if (Object.keys(req.body).length == 0) {
@@ -23,19 +24,28 @@ module.exports.getPlan = async function(req, res) {
     Plan
   });
 };
+// Aliasing
+module.exports.queryAdder = function(req, res, next) {
+  req.query = {
+    price: { gte: "40" },
+    sort: "-ratingAverage",
+    limit: "5"
+  };
+  next();
+};
 module.exports.getAllPlans = async function(req, res) {
   // data save
   const oQuery = { ...req.query };
+  console.log(req.query);
   // console.log(oQuery);
   // console.log(typeof oQuery);
   // filtering
   // gt
   // exclude special terms=> sort filter page limit
-  var exarr = ["sort", "filter", "page", "limit"];
+  var exarr = ["sort", "select", "page", "limit"];
   for (var i = 0; i < exarr.length; i++) {
     delete req.query[exarr[i]];
   }
-
   var str = JSON.stringify(req.query);
   // console.log(str);
   // regular expressions
@@ -58,9 +68,18 @@ module.exports.getAllPlans = async function(req, res) {
     plans.sort(sortString);
     // console.log(sortString);
   }
+  if (oQuery.select) {
+    var selectString = oQuery.select.split("%").join(" ");
+    // plans.sort(selectString);
+    plans.select(selectString);
+  }
+  //
+  const page = Number(oQuery.page) || 1;
+  const limit = Number(oQuery.limit) || 2;
+  const toSkip = (page - 1) * limit;
+  plans = plans.skip(toSkip).limit(limit);
   // execute
   const finalAnswer = await plans;
-
   res.json({
     finalAnswer
     // data: "reached get all plans"
