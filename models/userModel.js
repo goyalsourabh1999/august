@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 // Database link
 const config = require("../configs/config");
+// nodejs inbuilt module
+const crypto=require("crypto");
 // database connection
 mongoose
   .connect(config.DB, {
@@ -43,14 +45,26 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: Number
-  }
+  },
+  token:String
 });
+
 userSchema.pre("save", function() {
   // encrypt => password
-
   // confirm => remove from db
   this.confirmPassword = undefined;
+  // this.token=undefined;
 });
-// model
+
+userSchema.method("generateToken",function(){
+  // DB
+  const token=crypto.randomBytes(32).toString("hex");
+  this.token=token;
+  
+  // email
+  // console.log(this);
+  return token;
+})
+//model
 const userModel = mongoose.model("userModel", userSchema);
 module.exports = userModel;

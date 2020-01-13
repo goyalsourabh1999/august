@@ -10,10 +10,11 @@ const {
   queryAdder
 } = require("../controllers/planController");
 // api/plans => post
+const { protectRoute } = require("../controllers/authController");
 
 planRouter
   .route("")
-  .get(getAllPlans)
+  .get(protectRoute, getAllPlans)
   .post(checkInput, createPlan);
 planRouter.route("/best-5-plans").get(queryAdder, getAllPlans);
 planRouter
