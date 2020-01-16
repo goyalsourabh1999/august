@@ -84,7 +84,7 @@ module.exports.forgetPassword = async function(req, res) {
       const user = await userModel.findOne({ email });
       const token = user.generateToken();
 
-      user.save({validateBeforeSave:false});
+      user.save();
       res.json({ token,user });
     } else {
       res.json({

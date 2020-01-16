@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
     validate: function() {
       return this.password == this.confirmPassword;
     }
+    ,required:true
   },
   email: {
     type: String,
