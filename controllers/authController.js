@@ -20,7 +20,6 @@ module.exports.signup = async function(req, res) {
     res.json({ err });
   }
 };
-
 // Login
 module.exports.login = async function(req, res) {
   try {
@@ -128,10 +127,9 @@ module.exports.resetPassword = async function(req, res) {
     console.log(err);
     res.json({  err });
   }
-
   //  2. find user => token
-
   // user.password =>
   // await user.save();
   // 3. user => update user => password,updatePassword,token => undefined
 };
+
