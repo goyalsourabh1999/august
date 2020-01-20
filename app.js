@@ -14,8 +14,12 @@ app.set("views", "views");
 
 
 
+app.post("/api/login", function(req, res) {
+  console.log(req.body);
+  res.json({ data: "User verfied" });
+});
+app.use("/", viewRouter);
 
-app.use("/",viewRouter);
 app.use("/api/plans", planRouter);
 app.use("/api/users", userRouter);
 

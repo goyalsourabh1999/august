@@ -9,7 +9,10 @@ html
     link(rel='stylesheet', href='css/style.css')
     title #{title}
   body
-    include header
+    block header
+      include nav
     block content
       h1 content Area
-    include footer
+  include footer
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.js" crossorigin)
+  script(src="/js/frontend.js")
