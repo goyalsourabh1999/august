@@ -9,8 +9,9 @@ module.exports.signup = async function(req, res) {
     // payload
     const id = user["_id"];
     // 2.create Token
-    const token = await jwt.sign(JSON.stringify(id), KEY);
+    const token = await jwt.sign({ id }, KEY);
     // 3. Send the token
+    res.cookie("jwt", token, { httpOnly: true });
     res.json({
       user,
       token
@@ -31,11 +32,11 @@ module.exports.login = async function(req, res) {
     console.log(dbPassword);
     if (dbPassword == password) {
       const id = user["_id"];
-      const token = await jwt.sign(JSON.stringify(id), KEY);
-      console.log(token);
+      const token = await jwt.sign({ id }, KEY);
+      // console.log(token);
+      res.cookie("jwt", token, { httpOnly: true });
       return res.json({
-        user,
-        token
+        success: "User Logged In"
       });
     } else {
       return res.json({
@@ -44,6 +45,31 @@ module.exports.login = async function(req, res) {
     }
   } catch (err) {
     return res.json({
+      err
+    });
+  }
+};
+module.exports.isUserVerified = async function(req, res, next) {
+  // 1. Get The Token
+  try {
+    if (req.cookies && req.cookies.jwt) {
+      / 2. Verfiy the token{ /;
+      const token = req.cookies.jwt;
+      const ans = await jwt.verify(token, KEY);
+      if (ans) {
+        const user = await userModel.findById(ans.id);
+        req.user = user;
+        next();
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+    // 3. If verfied Call next;
+  } catch (err) {
+    console.log(err);
+    res.json({
       err
     });
   }
@@ -84,7 +110,7 @@ module.exports.forgetPassword = async function(req, res) {
       const token = user.generateToken();
 
       user.save();
-      res.json({ token,user });
+      res.json({ token, user });
     } else {
       res.json({
         user,
@@ -101,12 +127,19 @@ module.exports.forgetPassword = async function(req, res) {
   // 4. Client => email token
 };
 
+module.exports.logout = function(req, res) {
+  res.cookie("jwt", "jmdsfgjsdvhds", {
+    httpOnly: true,
+    expires: new Date(Date.now())
+  });
+  res.redirect("/");
+};
+
 module.exports.resetPassword = async function(req, res) {
   //  1. token,password,confirmPassword
   try {
     console.log(req.body);
     if (req.body.token && req.body.password && req.body.confirmPassword) {
-      
       const { token, password, confirmPassword } = req.body;
       console.log(token);
       const user = await userModel.findOne({ token });
@@ -114,7 +147,7 @@ module.exports.resetPassword = async function(req, res) {
       user.password = password;
       user.confirmPassword = confirmPassword;
       user.token = undefined;
-       user.save();
+      user.save();
       res.json({
         data: "Your password has been reset"
       });
@@ -125,11 +158,10 @@ module.exports.resetPassword = async function(req, res) {
     }
   } catch (err) {
     console.log(err);
-    res.json({  err });
+    res.json({ err });
   }
   //  2. find user => token
   // user.password =>
   // await user.save();
   // 3. user => update user => password,updatePassword,token => undefined
 };
-

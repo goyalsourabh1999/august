@@ -9,4 +9,8 @@ nav
     li.nav-line
       a.white-anchors(href='') PLANS
     li.nav-line
-      a.white-anchors(href='') SIGN UP
+      if user
+        a.white-anchors(href='') #{user.name}
+        a.white-anchors(href="/logout") LOGOUT
+      else
+        a.white-anchors(href='/login') LOGIN

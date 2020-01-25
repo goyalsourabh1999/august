@@ -1,10 +1,29 @@
-console.log("I have been loaded to frontend");
-// console.log(axios);
-async function login() {
-  const answer = await axios.post("/api/login", {
-    email: "abcd@gmail.com",
-    password: "12345"
-  });
-  location.assign("/");
+// selector
+const login = document.querySelector(".login");
+const signup=document.querySelector(".signup");
+
+async function sendLogin(email, password) {
+  try {
+    const response = await axios.post("/api/users/login", { email, password });
+    if (response.data.success) {
+      alert("User logged In");
+    } else {
+      alert("some Thing went wrong");
+    }
+  } catch (err) {
+    console.log(err);
+  }
 }
-// login();
+// add event listener
+if(login){
+login.addEventListener("submit", function(event) {
+  event.preventDefault();
+  const inputArr = document.getElementsByTagName("input");
+  const email = inputArr[0].value;
+  const password = inputArr[1].value;
+  sendLogin(email, password);
+});
+}
+if(signup){
+  
+}
