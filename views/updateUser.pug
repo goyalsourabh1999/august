@@ -6,7 +6,7 @@ block content
     video.bg-video__content(autoplay='', muted='', loop='')
       source(src='Avocado.mp4', type='video/mp4')
       |         Your browser is not supported
-    form.update( method="POST" action=`/api/users/updateUser/${user["_id"]}`)
+    form.update( method="POST" action=`/api/users/updateUser/${user["_id"]}` enctype="multipart/form-data")
       .entry
         .entry-text
           | Email
@@ -15,9 +15,9 @@ block content
         .entry-text
           | Name
         input(type='text', name='name' ,value=`${user.name}` )
-      //- .entry
-      //-   .entry-text
-      //-     | update Photo
-      //-   input(type='file', name='photo')
+      .entry
+        .entry-text
+          | update Photo
+        input(type='file', name='photo')
       .btn-parent
         button(type="submit").btn.btn-primary update User
