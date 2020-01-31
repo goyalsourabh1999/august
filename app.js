@@ -8,6 +8,8 @@ const planRouter = require("./routers/planRouter");
 const userRouter = require("./routers/userRouter");
 const viewRouter = require("./routers/viewRouter");
 // converts buffer to json
+// 
+app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 // => static files
 app.use(express.static("public"));
@@ -18,10 +20,7 @@ app.use(cookieParser());
 app.set("view engine", "pug");
 app.set("views", "views");
 
-// app.post("/api/login", function(req, res) {
-//   console.log(req.body);
-//   res.json({ data: "User verfied" });
-// });
+
 app.use(function(req,res,next){
   console.log("cookies");
   console.log(req.cookies)

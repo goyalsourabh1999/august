@@ -1,3 +1,5 @@
+import { response } from "express";
+
 // selector
 const login = document.querySelector(".login");
 const signup = document.querySelector(".signup");
@@ -7,7 +9,8 @@ async function sendLogin(email, password) {
     const response = await axios.post("/api/users/login", { email, password });
     if (response.data.success) {
       alert("User logged In");
-      location.replace("/me");
+      // browser
+      location.assign("/me");
     } else {
       alert("some Thing went wrong");
     }
@@ -26,4 +29,7 @@ if (login) {
   });
 }
 if (signup) {
+  if (response.data.success) {
+    location.assign("/");
+  }
 }

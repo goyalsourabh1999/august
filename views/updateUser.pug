@@ -6,16 +6,18 @@ block content
     video.bg-video__content(autoplay='', muted='', loop='')
       source(src='Avocado.mp4', type='video/mp4')
       |         Your browser is not supported
-    form.login
-      
+    form.update( method="POST" action=`/api/users/updateUser/${user["_id"]}`)
       .entry
         .entry-text
           | Email
-        input(type='email', name='email', placeholder='Your Email')
+        input(type='email', name='email', value=`${user.email}` )
       .entry
         .entry-text
           | Name
-        input(type='password', name='name', placeholder='Your Password')
-     
+        input(type='text', name='name' ,value=`${user.name}` )
+      //- .entry
+      //-   .entry-text
+      //-     | update Photo
+      //-   input(type='file', name='photo')
       .btn-parent
-        button(type="submit").btn.btn-primary update
+        button(type="submit").btn.btn-primary update User
