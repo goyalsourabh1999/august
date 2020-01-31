@@ -6,14 +6,16 @@ module.exports.getUser = async function(req, res) {
   res.json({ user });
 };
 // update
-
 module.exports.updateUser = async function(req, res) {
   const id = req.params.id;
   console.log(id);
   console.log(req.body);
-  const user = await userModel.findOneAndUpdate({_id:id}, req.body, { new: true });
+  console.log(req.file);
+  const user = await userModel.findOneAndUpdate({ _id: id }, req.body, {
+    new: true
+  });
   console.log(user);
 
-  res.redirect("/me");
+  // res.redirect("/me");
   // const id = user.id;
 };
