@@ -2,16 +2,19 @@ const viewRouter = require("express").Router();
 const {
   getHomePage,
   getPlansPage,
-  getLoginPage
+  getLoginPage,
+  getProfilePage
 } = require("../controllers/viewController");
 const {
   protectRoute,
-  isUserVerified,logout
+  isUserVerified,
+  logout
 } = require("../controllers/authController");
 viewRouter.use(isUserVerified);
-viewRouter.route("/logout").get(logout)
-viewRouter.route("").get(getHomePage);
+viewRouter.route("/logout").get(logout);
 viewRouter.route("/plans").get(protectRoute, getPlansPage);
+viewRouter.route("/me").get(protectRoute, getProfilePage);
 viewRouter.route("/login").get(getLoginPage);
+viewRouter.route("").get(getHomePage);
 
 module.exports = viewRouter;

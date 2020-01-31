@@ -27,9 +27,9 @@ module.exports.login = async function(req, res) {
     // email,password
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
-    console.log(user);
+    // console.log(user);
     const dbPassword = user.password;
-    console.log(dbPassword);
+    // console.log(dbPassword);
     if (dbPassword == password) {
       const id = user["_id"];
       const token = await jwt.sign({ id }, KEY);
@@ -53,7 +53,6 @@ module.exports.isUserVerified = async function(req, res, next) {
   // 1. Get The Token
   try {
     if (req.cookies && req.cookies.jwt) {
-      / 2. Verfiy the token{ /;
       const token = req.cookies.jwt;
       const ans = await jwt.verify(token, KEY);
       if (ans) {
@@ -80,11 +79,15 @@ module.exports.protectRoute = async function(req, res, next) {
   // console.log(req.headers.Authorization);
   // console.log(req.headers);
   try {
-    if (req.headers && req.headers.authorization) {
+    if (req.cookies && req.cookies.jwt) {
       // 2. Verfiy the token{
-      const token = req.headers.authorization.split(" ")[1];
+        
+      const token = req.cookies.jwt;
+     
       const ans = await jwt.verify(token, KEY);
       if (ans) {
+        const user = await userModel.findById(ans.id);
+        req.user = user;
         next();
       } else {
         res.json({

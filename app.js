@@ -23,7 +23,9 @@ app.set("views", "views");
 //   res.json({ data: "User verfied" });
 // });
 app.use(function(req,res,next){
+  console.log("cookies");
   console.log(req.cookies)
+  console.log("end");
 next();
 })
 app.use("/", viewRouter);

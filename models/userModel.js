@@ -3,7 +3,7 @@ const validator = require("validator");
 // Database link
 const config = require("../configs/config");
 // nodejs inbuilt module
-const crypto=require("crypto");
+const crypto = require("crypto");
 // database connection
 mongoose
   .connect(config.DB, {
@@ -24,15 +24,15 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     minlength: 8,
-    required:true
+    required: true
   },
   confirmPassword: {
     type: String,
     minlength: 8,
     validate: function() {
       return this.password == this.confirmPassword;
-    }
-    ,required:true
+    },
+    required: true
   },
   email: {
     type: String,
@@ -47,7 +47,11 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: Number
   },
-  token:String
+  photo: {
+    type: "String",
+    default: "default.jpeg"
+  },
+  token: String
 });
 
 userSchema.pre("save", function() {
@@ -57,15 +61,15 @@ userSchema.pre("save", function() {
   // this.token=undefined;
 });
 
-userSchema.method("generateToken",function(){
+userSchema.method("generateToken", function() {
   // DB
-  const token=crypto.randomBytes(32).toString("hex");
-  this.token=token;
-  
+  const token = crypto.randomBytes(32).toString("hex");
+  this.token = token;
+
   // email
   // console.log(this);
   return token;
-})
+});
 //model
 const userModel = mongoose.model("userModel", userSchema);
 module.exports = userModel;

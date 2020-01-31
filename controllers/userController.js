@@ -5,3 +5,7 @@ module.exports.getUser = async function(req, res) {
   const user = await userModel.findById(id);
   res.json({ user });
 };
+// update 
+
+
+
