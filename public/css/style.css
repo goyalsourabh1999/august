@@ -393,3 +393,19 @@ footer {
   margin-top: 2%;
   font-size: 140%;
 }
+
+.img-Size{
+  height: 25vh;
+  width:10vw;
+  border-radius: 50%;
+}
+
+.signup-parent{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.planDetail-parent{
+  display: flex;
+  justify-content: space-evenly;
+}

@@ -5,6 +5,6 @@ block content
   if user.phone 
     h2 phone #{user.phone}
   h2 photo 
-    img(src=`${user.photo}`, alt="")
+    img(src=`${user.photo}`, alt="").img-Size
   h2  
     a(href="/updateUser") Update user

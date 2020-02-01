@@ -10,12 +10,13 @@ module.exports.updateUser = async function(req, res) {
   const id = req.params.id;
   console.log(id);
   console.log(req.body);
-  console.log(req.file);
+  const photo=req.file.filename;
+  req.body.photo=photo;
   const user = await userModel.findOneAndUpdate({ _id: id }, req.body, {
     new: true
   });
   console.log(user);
-
-  // res.redirect("/me");
+// express => redirect
+  res.redirect("/me");
   // const id = user.id;
 };
