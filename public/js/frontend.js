@@ -1,4 +1,3 @@
-import { response } from "express";
 
 // selector
 const login = document.querySelector(".login");
