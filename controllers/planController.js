@@ -87,15 +87,20 @@ module.exports.getAllPlans = async function (req, res) {
 };
 module.exports.updatePlan = async function (req, res) {
   const { id } = req.params;
-  const values = req.body;
   // console.log(req)
-  console.log(req.files.cover[0]);
-  console.log(req.files.pictures);
+  req.body.cover = req.files.cover[0].filename;
+
+  const picturesArr = req.files.pictures;
+  const pictures = picturesArr.map((picture) => {
+    return picture.filename;
+  })
+  req.body.pictures = pictures;
+  const values = req.body;
   const updatedPlan = await planModel.findByIdAndUpdate(id, values, {
     new: true
   });
   res.json({
-    success:"Plan updated",
+    success: "Plan updated",
     updatedPlan
   });
 };

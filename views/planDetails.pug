@@ -1,7 +1,7 @@
 extend base
 block content
     .planDetail-parent
-        include planCard
+        include detailPlan
         form.uploadPlanImages(method="POST" enctype="multipart/form-data" action=`/api/plans/${plan["_id"]}`)
                 .entry
                     .entry-text
@@ -22,4 +22,5 @@ block content
                     input(type='file' name='pictures')
                 
                 .btn-parent
+                if user
                     button(type="submit" planId=`${plan["_id"]}`).btn.btn-primary.updatebtn add Images
