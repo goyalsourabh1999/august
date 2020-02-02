@@ -8,7 +8,8 @@ const {
   updatePlan,
   createPlan,
   checkInput,
-  queryAdder
+  queryAdder,
+  mymiddleware
 } = require("../controllers/planController");
 // api/plans => post
 const { protectRoute } = require("../controllers/authController");
@@ -45,13 +46,16 @@ planRouter
   .get(protectRoute, getAllPlans)
   .post(checkInput, createPlan);
 planRouter.route("/best-5-plans").get(queryAdder, getAllPlans);
+
+planRouter.post("/:id",upload.fields([{
+  name: "cover", maxCount: 1
+}, {
+  name: "pictures", maxCount: 3
+}]), updatePlan)
+
 planRouter
   .route("/:id")
-  .patch(upload.fields([{
-    name: "cover", maxCount: 1
-  }, {
-    name: "picture", maxCount: 3
-  }]), updatePlan)
+  .patch(updatePlan)
   .delete(deletePlan)
   .get(getPlan);
 module.exports = planRouter;

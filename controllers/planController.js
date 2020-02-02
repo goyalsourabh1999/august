@@ -88,7 +88,9 @@ module.exports.getAllPlans = async function (req, res) {
 module.exports.updatePlan = async function (req, res) {
   const { id } = req.params;
   const values = req.body;
-  console.log(req.file);
+  // console.log(req)
+  console.log(req.files.cover[0]);
+  console.log(req.files.pictures);
   const updatedPlan = await planModel.findByIdAndUpdate(id, values, {
     new: true
   });
@@ -97,6 +99,7 @@ module.exports.updatePlan = async function (req, res) {
     updatedPlan
   });
 };
+
 module.exports.createPlan = async function (req, res) {
   // create plan planModel=> cloud db
   try {
