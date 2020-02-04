@@ -87,7 +87,7 @@ module.exports.protectRoute = async function(req, res, next) {
       const ans = await jwt.verify(token, KEY);
       if (ans) {
         const user = await userModel.findById(ans.id);
-        // req.user = user;
+        req.user = user;
         next();
       } else {
         res.json({

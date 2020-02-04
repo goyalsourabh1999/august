@@ -33,7 +33,7 @@ app.use("/", viewRouter);
 
 app.use("/api/plans", planRouter);
 app.use("/api/users", userRouter);
-app.use("/api/booking",bookingRouter);
+app.use("/api/bookings",bookingRouter);
 // app.get("/plans",);
 // createPlans
 // plans/1

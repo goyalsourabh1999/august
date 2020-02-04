@@ -36,24 +36,43 @@ if (signup) {
   }
 }
 
-if(bookPlan){bookPlan.addEventListener("click",async function(e){
-  e.preventDefault();
-const id=bookPlan.getAttribute("planId");
-const response=await axios.get("/api/booking/"+id);
-const session=response.data.session;
-console.log(session);
+if (bookPlan) {
+  bookPlan.addEventListener("click", async function (e) {
+    e.preventDefault();
+    const planId = bookPlan.getAttribute("planId");
+    const response = await axios.get("/api/bookings/" + planId);
+    const session = response.data.session;
+    const userId = response.data.userId;
+    console.log(session);
 
-console.log(session.id);
-stripe.redirectToCheckout({
-  // Make the id field from the Checkout Session creation API response
-  // available to this file, so you can provide it as parameter here
-  // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-  sessionId: session.id
-}).then(function (result) {
-  console.log(result);
-  // If `redirectToCheckout` fails due to a browser or network
-  // error, display the localized error message to your customer
-  // using `result.error.message`.
-});
+    console.log(session.id);
+// booking create
+    const result = await axios.post("/api/bookings/createNewbooking", {
+      userId: userId,
+      planId: planId
+    })
+    
+    stripe.redirectToCheckout({
+      // Make the id field from the Checkout Session creation API response
+      // available to this file, so you can provide it as parameter here
+      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+      sessionId: session.id
+    }).then( function (resultFromStripe) {
+console.log(resultFromStripe)
+      if (resultFromStripe.error.message) {
+    // /api/bookings/removeNewbooking
+    
+        alert("Booking Failed");
+        
+        // => remove th booking
+      } else {
+        
+      }
 
-})}
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    });
+
+  })
+}
