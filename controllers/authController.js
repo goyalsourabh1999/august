@@ -1,6 +1,6 @@
 const userModel = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-const KEY = require("../configs/config").KEY;
+const KEY = process.env.KEY;
 // Signup
 module.exports.signup = async function(req, res) {
   // 1. create user

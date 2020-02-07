@@ -22,6 +22,8 @@ module.exports.createCheckoutSession = async function (req, res) {
     success_url: "http://localhost:3000/me",
     cancel_url: 'http://localhost:3000/login',
   });
+  // req.protocol
+// req.headers.hostnam
   res.json({
     session,
     userId
