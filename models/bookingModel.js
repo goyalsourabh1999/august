@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 // Database link
-const config = require("../configs/config");
+// const config = require("../configs/config");
 // database connection
 mongoose
     .connect(process.env.DB, {
