@@ -104,6 +104,7 @@ module.exports.createBooking = async function (request, response) {
   const endpointSecret = END_POINT_SECRET;
   try {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    console.log(event);
     if (event.type == "checkout.session.completed") {
       const userEmail = event.data.object.customer_email;
       const planName = event.data.object.line_items[0].name;
