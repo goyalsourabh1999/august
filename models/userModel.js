@@ -6,7 +6,7 @@ const config = require("../configs/config");
 const crypto = require("crypto");
 // database connection
 mongoose
-  .connect(process.env.DB, {
+  .connect(config.DB, {
     useUnifiedTopology: true,
     useNewUrlParser: true
   })
