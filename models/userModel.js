@@ -6,7 +6,7 @@ const config = require("../configs/config");
 const crypto = require("crypto");
 // database connection
 mongoose
-  .connect(config.DB, {
+  .connect(process.env.DB, {
     useUnifiedTopology: true,
     useNewUrlParser: true
   })
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
   confirmPassword: {
     type: String,
     minlength: 8,
-    validate: function() {
+    validate: function () {
       return this.password == this.confirmPassword;
     },
     required: true
@@ -51,17 +51,20 @@ const userSchema = new mongoose.Schema({
     type: "String",
     default: "default.jpeg"
   },
-  token: String
+  token: String,
+  userBookedPlansId: {
+    type: String
+  }
 });
 
-userSchema.pre("save", function() {
+userSchema.pre("save", function () {
   // encrypt => password
   // confirm => remove from db
   this.confirmPassword = undefined;
   // this.token=undefined;
 });
 
-userSchema.method("generateToken", function() {
+userSchema.method("generateToken", function () {
   // DB
   const token = crypto.randomBytes(32).toString("hex");
   this.token = token;
