@@ -2,7 +2,7 @@ const planModel = require("../models/planModel");
 const userModel = require("../models/userModel");
 const bookingModel = require("../models/bookingModel");
 // const stripe = require("stripe");
-const SK = require("../configs/config").SK;
+const SK = process.env.SK;
 const stripe = require('stripe')(SK);
 module.exports.createCheckoutSession = async function (req, res) {
   const id = req.params.id;
@@ -19,8 +19,8 @@ module.exports.createCheckoutSession = async function (req, res) {
       currency: 'inr',
       quantity: 1,
     }],
-    success_url: "http://localhost:3000/me",
-    cancel_url: 'http://localhost:3000/login',
+    success_url: `${req.protcol}://${req.get("host")}/me`,
+    cancel_url: `${req.protocol}://${req.get("host")}/login`,
   });
   // req.protocol
 // req.headers.hostnam

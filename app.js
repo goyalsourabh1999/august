@@ -43,7 +43,7 @@ app.use("/api/bookings",bookingRouter);
 // app.post("/plans");
 
 // user
-app.get("/users");
+
 const port=process.env.PORT||3000
 app.listen(port, () => {
   console.log("Server is listening at port 3000");
