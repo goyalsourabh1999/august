@@ -32,8 +32,7 @@ console.log(plan);
 
 
 
-    // id=> planModel.findbyId
-    // session=> npm install stripe 
+   
 
 
 
