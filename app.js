@@ -10,7 +10,7 @@ const viewRouter = require("./routers/viewRouter");
 const bookingRouter = require("./routers/bookingRouter");
 const bookingController = require("./controllers/bookingController");
 // converts buffer to json
-// app.use(bodyParser.raw({ type: 'application/json' }));
+app.use(bodyParser.raw({ type: 'application/json' }));
 app.post("/webhook-checkout", bookingController.createBooking);
 
 app.use(express.urlencoded({ extended: true }));
