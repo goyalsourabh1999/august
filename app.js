@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 const cookieParser = require("cookie-parser");
-
+const cors=require("cors")
 // const users = require("./data/users");
 const planRouter = require("./routers/planRouter");
 const userRouter = require("./routers/userRouter");
@@ -10,6 +10,7 @@ const viewRouter = require("./routers/viewRouter");
 const bookingRouter = require("./routers/bookingRouter");
 const bookingController = require("./controllers/bookingController");
 // converts buffer to json
+app.use(cors());
 app.use(bodyParser.raw({ type: 'application/json' }));
 app.post("/webhook-checkout", bookingController.createBooking);
 
