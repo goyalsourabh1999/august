@@ -50,7 +50,7 @@ module.exports.createCheckoutSession = async function (req, res) {
 
 }
 
-module.exports.createNewBooking = async function (userEmail, planId) {
+const createNewBooking = async function (userEmail, planId) {
 
   const user = await userModel.findOne({ email: userEmail });
   const plan = await planModel.findById(planId);
