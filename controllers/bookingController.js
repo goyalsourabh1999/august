@@ -54,7 +54,7 @@ module.exports.createNewBooking = async function (userEmail, planId) {
 
   const user = await userModel.findOne({ email: userEmail });
   const plan = await planModel.findById(planId);
-  const planId = plan["_id"];
+  
   const userId = user["_id"];
 
   if (user.userBookedPlansId == undefined) {
