@@ -97,23 +97,22 @@ module.exports.createNewBooking = async function (userEmail, planName) {
 
 
 }
-
 module.exports.createBooking = async function (request, response) {
   const sig = request.headers['stripe-signature'];
   let event;
   const endpointSecret = END_POINT_SECRET;
   try {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    console.log(event);
- 
-      const userEmail = event.data.object.customer_email;
-      const planName = event.data.object.line_items[0].name;
-      await createNewBooking(userEmail, planName);
-      // payment complete
-      response.json({ received: true });
-    
+    // console.log(event);
   }
   catch (err) {
-    response.status(400).send(`Webhook Error: ${err.message}`);
+  return  response.status(400).send(`Webhook Error: ${err.message}`);
   }
+  if(event.type=="checkout.session.completed"){
+    const userEmail = event.data.object.customer_email;
+    const planName = event.data.object.line_items[0].name;
+    await createNewBooking(userEmail, planName);
+    // payment complete
+  }
+  response.json({ received: true });
 }
