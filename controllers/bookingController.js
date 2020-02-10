@@ -14,6 +14,7 @@ module.exports.createCheckoutSession = async function (req, res) {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     customer_email: user.email,
+    client_reference_id:plan["_id"],
     line_items: [{
       name: plan.name,
       description: plan.description,
@@ -49,10 +50,10 @@ module.exports.createCheckoutSession = async function (req, res) {
 
 }
 
-module.exports.createNewBooking = async function (userEmail, planName) {
+module.exports.createNewBooking = async function (userEmail, planId) {
 
   const user = await userModel.findOne({ email: userEmail });
-  const plan = await planModel.findOne({ name: planName });
+  const plan = await planModel.findById(planId);
   const planId = req.body.planId;
   const userId = req.body.userId;
 
@@ -111,8 +112,8 @@ module.exports.createBooking = async function (request, response) {
   if(event.type=="checkout.session.completed"){
     const userEmail = event.data.object.customer_email;
     console.log(event.data.object);
-    const planName = event.data.object.line_items[0].name;
-    await createNewBooking(userEmail, planName);
+    const planId = event.data.object.client_reference_id;
+    await createNewBooking(userEmail, planId);
     // payment complete
   }
   response.json({ received: true });
