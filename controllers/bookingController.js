@@ -54,8 +54,8 @@ module.exports.createNewBooking = async function (userEmail, planId) {
 
   const user = await userModel.findOne({ email: userEmail });
   const plan = await planModel.findById(planId);
-  const planId = req.body.planId;
-  const userId = req.body.userId;
+  const planId = plan["_id"];
+  const userId = user["_id"];
 
   if (user.userBookedPlansId == undefined) {
     // 1 first time user
@@ -74,8 +74,7 @@ module.exports.createNewBooking = async function (userEmail, planId) {
     const newOrder = await bookingModel.create(order);
     // user update
     user.userBookedPlansId = newOrder["_id"];
-    await user.save({ validateBeforeSave: false });
-    
+    await user.save({ validateBeforeSave: false }); 
   }
   else {
     const newPlan = {
