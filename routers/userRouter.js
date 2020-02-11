@@ -2,17 +2,15 @@ const userRouter = require("express").Router();
 const multer = require("multer");
 const path = require("path");
 // server => upload path
-
-// var upload = multer({});
 // console.log(__dirname);
-var storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + ".jpeg")
-  }, destination: function (req, file, cb) {
-    cb(null, 'public');
-  }
-})
-
+// var storage = multer.diskStorage({
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now() + ".jpeg")
+//   }, destination: function (req, file, cb) {
+//     cb(null, 'public');
+//   }
+// })
+const multerStorage=multer.memoryStorage();
 const fileFilter = function (req, file, cb) {
   try{
   if (file.mimetype.startsWith("image")) {
@@ -26,7 +24,7 @@ const fileFilter = function (req, file, cb) {
   }
 }
 var upload = multer({
-  storage: storage,
+  storage: multerStorage,
   fileFilter
 })
 const {
@@ -46,7 +44,5 @@ userRouter.route("/login").post(login);
 userRouter.route("/getUser").get(getUser);
 userRouter.route("/forgetPassword").patch(forgetPassword);
 userRouter.route("/resetPassword").patch(resetPassword);
-
-
 // userRouter.route("/updatePassword").patch(updatePassword);
 module.exports = userRouter;
