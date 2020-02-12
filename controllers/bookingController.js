@@ -108,8 +108,14 @@ module.exports.createBooking = async function (request, response) {
   catch (err) {
   return  response.status(400).send(`Webhook Error: ${err.message}`);
   }
+
+
+
+
+  
   if(event.type=="checkout.session.completed"){
     const userEmail = event.data.object.customer_email;
+  //  => session
     console.log(event.data.object);
     const planId = event.data.object.client_reference_id;
     await createNewBooking(userEmail, planId);

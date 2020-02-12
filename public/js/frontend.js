@@ -36,12 +36,13 @@ if (bookPlan) {
   bookPlan.addEventListener("click", async function (e) {
     e.preventDefault();
     const planId = bookPlan.getAttribute("planId");
+
     const response = await axios.get("/api/bookings/" + planId);
     const session = response.data.session;
-    const userId = response.data.userId;
-    console.log(session);
+    // const userId = response.data.userId;
+    // console.log(session);
 
-    console.log(session.id);
+    // console.log(session.id);
 // booking create
    
     

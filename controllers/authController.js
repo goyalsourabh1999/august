@@ -1,16 +1,18 @@
 const userModel = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const KEY = process.env.KEY;
+const email=require("../utilities/email");
 // Signup
 module.exports.signup = async function(req, res) {
-  // 1. create user
   try {
+    // 1. create user
+    // 
     const user = await userModel.create(req.body);
     // payload
     const id = user["_id"];
     // 2.create Token
     const token = await jwt.sign({ id }, KEY);
-    // 3. Send the token
+    // 3. Send the token in res.cookies
     res.cookie("jwt", token, { httpOnly: true });
     res.json({
       user,
@@ -39,10 +41,11 @@ module.exports.login = async function(req, res) {
         success: "User Logged In"
       });
     } else {
-      return res.json({
+    res.json({
         data: "something Went wrong"
       });
     }
+   return res.json({data:"send some data"})
   } catch (err) {
     return res.json({
       err
@@ -109,11 +112,18 @@ module.exports.forgetPassword = async function(req, res) {
   try {
     if (req.body.email) {
       const { email } = req.body;
+      // get userbased on email
       const user = await userModel.findOne({ email });
+      // user => generate token 
       const token = user.generateToken();
 
-      user.save();
-      res.json({ token, user });
+     await  user.save();
+const options={to:email,
+  html:`<h1>your reset token ${token} </h1>`,
+  subject:"Reset Token"
+};
+await email(options);
+      res.json({ success:"token to your registered email has been send" });
     } else {
       res.json({
         user,
@@ -144,13 +154,13 @@ module.exports.resetPassword = async function(req, res) {
     console.log(req.body);
     if (req.body.token && req.body.password && req.body.confirmPassword) {
       const { token, password, confirmPassword } = req.body;
-      console.log(token);
+      // console.log(token);
       const user = await userModel.findOne({ token });
       console.log(user);
       user.password = password;
       user.confirmPassword = confirmPassword;
       user.token = undefined;
-      user.save();
+      await user.save();
       res.json({
         data: "Your password has been reset"
       });

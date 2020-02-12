@@ -12,10 +12,10 @@ module.exports = async function (options) {
         });
         // 2. Email options
         const emailOptions = {
-            from: '"Origami" <admin@origami.com>', // sender address
+            from: '"Jasbir" <admin@origami.com>', // sender address
             to: options.to, // list of receivers
             subject: options.subject, // Subject line
-            text: options.text,
+        
             html: option.html // html body
         };
         // "<h1>Reset Token:</h1><p>token</p>"
