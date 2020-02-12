@@ -5,12 +5,13 @@ const {
   getLoginPage,
   getProfilePage,
   getUpdateUserPage,
-  getPlansDetailsPage
+  getPlansDetailsPage,
+  getSignupPage
 } = require("../controllers/viewController");
 const {
   protectRoute,
   isUserVerified,
-  logout,getSignupPage
+  logout,
 } = require("../controllers/authController");
 viewRouter.use(isUserVerified);
 viewRouter.route("/logout").get(logout);
