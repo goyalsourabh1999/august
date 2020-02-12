@@ -47,6 +47,9 @@ header,
 .white-anchors {
   color: white;
 }
+.blacj-anchors{
+  color:grey;
+}
 
 .nav-line:hover {
   border-bottom: 0.1rem solid #f63854;
