@@ -28,10 +28,9 @@ async function sendSignup(name, email, password, confirmPassword) {
   });
   if (response.data.success) {
     alert(`${name} successfully signedup`);
-  }
-  else{
+  } else {
     alert("something went wrong please try later");
-    location.reload();
+    location.assign("/login");
   }
 }
 
@@ -54,7 +53,8 @@ if (signup) {
     const email = inputArr[1].value;
     const password = inputArr[2].value;
     const confirmPassword = inputArr[3].value;
-  });
+    signup(name, email, password, confirmPassword);
+    });
 }
 
 if (bookPlan) {
