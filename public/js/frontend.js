@@ -26,14 +26,15 @@ async function sendSignup(name, email, password, confirmPassword) {
     password,
     confirmPassword
   });
+  if (response.data.success) {
+    alert(`${name} successfully signedup`);
+  }
+  else{
+    alert("something went wrong please try later");
+    location.reload();
+  }
 }
-if (response.data.success) {
-  alert(`${name} successfully signedup`);
-}
-else{
-  alert("something went wrong please try later");
-  location.reload();
-}
+
 // add event listener
 if (login) {
   login.addEventListener("submit", function(event) {
