@@ -53,7 +53,7 @@ if (signup) {
     const email = inputArr[1].value;
     const password = inputArr[2].value;
     const confirmPassword = inputArr[3].value;
-    signup(name, email, password, confirmPassword);
+    sendSignup(name, email, password, confirmPassword);
     });
 }
 
