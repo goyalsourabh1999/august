@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
-module.exports = async function (optio
-    ns) {
+module.exports = async function (options) {
     // 1.  create  setting
     try {
         var transport = nodemailer.createTransport({
