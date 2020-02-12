@@ -1,21 +1,20 @@
 extends base
 block content
-  section.Input.fadeInUp
-  h2 LOGIN 
-  .container__parent
-    video.bg-video__content(autoplay='', muted='', loop='')
-      source(src='Avocado.mp4', type='video/mp4')
-      |         Your browser is not supported
-    form.login
-      
-      .entry
-        .entry-text
-          | Email
-        input(type='email', name='email', placeholder='Your Email')
-      .entry
-        .entry-text
-          | Password
-        input(type='password', name='password', placeholder='Your Password')
-     
-      .btn-parent
-        button(type="submit").btn.btn-primary Login
+    h2 LOGIN 
+    .container__parent
+      video.bg-video__content(autoplay='', muted='', loop='')
+        source(src='Avocado.mp4', type='video/mp4')
+        |         Your browser is not supported
+      form.login
+        .entry
+          .entry-text
+            | Email
+          input(type='email', name='email', placeholder='Your Email')
+        .entry
+          .entry-text
+            | Password
+          input(type='password', name='password', placeholder='Your Password')
+        .btn-parent
+          button(type="submit").btn.btn-primary Login
+    a(href="/signup").black-anchors Signup 
+    a(href="/forgetPassword").black-anchors Forget Password 

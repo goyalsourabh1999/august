@@ -1,10 +1,9 @@
-
 // selector
 const login = document.querySelector(".login");
 const signup = document.querySelector(".signup");
 const uploadPlanImages = document.querySelector(".uploadPlanImages");
 const bookPlan = document.querySelector(".bookPlan");
-const stripe = Stripe('pk_test_ZN4f6Z1tmqHyaKzHblk84y2K00unLLJgRr');
+const stripe = Stripe("pk_test_ZN4f6Z1tmqHyaKzHblk84y2K00unLLJgRr");
 async function sendLogin(email, password) {
   try {
     const response = await axios.post("/api/users/login", { email, password });
@@ -20,9 +19,24 @@ async function sendLogin(email, password) {
   }
 }
 
+async function sendSignup(name, email, password, confirmPassword) {
+  const response = await axios.post("/api/users/signup", {
+    name,
+    email,
+    password,
+    confirmPassword
+  });
+  if (response.data.success) {
+    alert(`${name} successfully signedup`);
+  } else {
+    alert("something went wrong please try later");
+    location.assign("/login");
+  }
+}
+
 // add event listener
 if (login) {
-  login.addEventListener("submit", function (event) {
+  login.addEventListener("submit", function(event) {
     event.preventDefault();
     const inputArr = document.getElementsByTagName("input");
     const email = inputArr[0].value;
@@ -31,9 +45,20 @@ if (login) {
   });
 }
 
+if (signup) {
+  signup.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const inputArr = document.getElementsByTagName("input");
+    const name = inputArr[0].value;
+    const email = inputArr[1].value;
+    const password = inputArr[2].value;
+    const confirmPassword = inputArr[3].value;
+    signup(name, email, password, confirmPassword);
+    });
+}
 
 if (bookPlan) {
-  bookPlan.addEventListener("click", async function (e) {
+  bookPlan.addEventListener("click", async function(e) {
     e.preventDefault();
     const planId = bookPlan.getAttribute("planId");
 
@@ -42,8 +67,6 @@ if (bookPlan) {
     // const userId = response.data.userId;
     // console.log(session);
 
-    // console.log(session.id);
-// booking create
    
     
     stripe.redirectToCheckout({
@@ -63,10 +86,29 @@ console.log(resultFromStripe)
         
       }
 
-      // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `result.error.message`.
-    });
+    
 
-  })
-}
+    stripe
+      .redirectToCheckout({
+        // Make the id field from the Checkout Session creation API response
+        // available to this file, so you can provide it as parameter here
+        // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+        sessionId: session.id
+      })
+      .then(function(resultFromStripe) {
+        console.log(resultFromStripe);
+        if (resultFromStripe.error.message) {
+          // /api/bookings/removeNewbooking
+
+          alert("Booking Failed");
+
+          // => remove th booking
+        } else {
+        }
+
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer
+        // using `result.error.message`.
+      });
+  });
+})};

@@ -6,6 +6,7 @@ module.exports.getHomePage = async function (req, res) {
   // console.log(plans);
   res.render("home.pug", { title: "Home Page", plans: plans, user: user });
 };
+
 module.exports.getPlansPage = async function (req, res) {
   const user = req.user;
   const plans = await planModel.find();
@@ -16,6 +17,9 @@ module.exports.getPlansPage = async function (req, res) {
 module.exports.getLoginPage = function (req, res) {
   res.render("login.pug", { title: "Login Page" });
 };
+module.exports.getSignupPage=async function(req,res){
+  res.render("signup.pug",{title:"Signup Page"})
+}
 module.exports.getProfilePage = function (req, res) {
   const user = req.user;
   // console.log(user);
