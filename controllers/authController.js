@@ -95,9 +95,10 @@ module.exports.protectRoute = async function(req, res, next) {
         });
       }
     } else {
-      res.json({
-        data: "Something went wrong"
-      });
+      // res.json({
+      //   data: "Something went wrong"
+      // });
+      res.redirect("/login");
     }
     // 3. If verfied Call next;
   } catch (err) {
