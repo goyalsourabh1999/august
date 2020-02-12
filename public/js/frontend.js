@@ -4,6 +4,9 @@ const signup = document.querySelector(".signup");
 const uploadPlanImages = document.querySelector(".uploadPlanImages");
 const bookPlan = document.querySelector(".bookPlan");
 const stripe = Stripe("pk_test_ZN4f6Z1tmqHyaKzHblk84y2K00unLLJgRr");
+const forgetPassword = document.querySelector(".forgetPassword");
+const resetPassword = document.querySelector(".resetPassword");
+
 async function sendLogin(email, password) {
   try {
     const response = await axios.post("/api/users/login", { email, password });
@@ -33,7 +36,12 @@ async function sendSignup(name, email, password, confirmPassword) {
     location.assign("/login");
   }
 }
+async function sendForgetpassword(){
 
+}
+async function sendResetPassword(){
+  
+}
 // add event listener
 if (login) {
   login.addEventListener("submit", function(event) {
@@ -54,7 +62,7 @@ if (signup) {
     const password = inputArr[2].value;
     const confirmPassword = inputArr[3].value;
     sendSignup(name, email, password, confirmPassword);
-    });
+  });
 }
 
 if (bookPlan) {
@@ -66,27 +74,6 @@ if (bookPlan) {
     const session = response.data.session;
     // const userId = response.data.userId;
     // console.log(session);
-
-   
-    
-    stripe.redirectToCheckout({
-      // Make the id field from the Checkout Session creation API response
-      // available to this file, so you can provide it as parameter here
-      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-      sessionId: session.id
-    }).then( function (resultFromStripe) {
-console.log(resultFromStripe)
-      if (resultFromStripe.error.message) {
-    // /api/bookings/removeNewbooking
-    
-        alert("Booking Failed");
-        
-        // => remove th booking
-      } else {
-        
-      }
-
-    
 
     stripe
       .redirectToCheckout({
@@ -106,9 +93,34 @@ console.log(resultFromStripe)
         } else {
         }
 
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, display the localized error message to your customer
-        // using `result.error.message`.
+        stripe
+          .redirectToCheckout({
+            // Make the id field from the Checkout Session creation API response
+            // available to this file, so you can provide it as parameter here
+            // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+            sessionId: session.id
+          })
+          .then(function(resultFromStripe) {
+            console.log(resultFromStripe);
+            if (resultFromStripe.error.message) {
+              // /api/bookings/removeNewbooking
+
+              alert("Booking Failed");
+
+              // => remove th booking
+            } else {
+            }
+
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer
+            // using `result.error.message`.
+          });
       });
   });
-})};
+}
+if(forgetPassword){
+  forgetPassword.addEventListener("submit",function(e){
+e.preventDefault();
+
+  })
+}

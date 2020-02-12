@@ -120,8 +120,6 @@ module.exports.forgetPassword = async function(req, res) {
       const user = await userModel.findOne({ email });
       // user => generate token 
       const token = user.generateToken();
-
-
      await  user.save();
 const options={to:email,
   html:`<h1>your reset token ${token} </h1>`,
@@ -157,12 +155,12 @@ module.exports.logout = function(req, res) {
 module.exports.resetPassword = async function(req, res) {
   //  1. token,password,confirmPassword
   try {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.token && req.body.password && req.body.confirmPassword) {
       const { token, password, confirmPassword } = req.body;
       // console.log(token);
       const user = await userModel.findOne({ token });
-      console.log(user);
+      // console.log(user);
       user.password = password;
       user.confirmPassword = confirmPassword;
       user.token = undefined;

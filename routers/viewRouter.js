@@ -6,12 +6,14 @@ const {
   getProfilePage,
   getUpdateUserPage,
   getPlansDetailsPage,
-  getSignupPage
+  getSignupPage,
+  getForgetPassswordPage,
+  getresetPassswordPage
 } = require("../controllers/viewController");
 const {
   protectRoute,
   isUserVerified,
-  logout,
+  logout
 } = require("../controllers/authController");
 viewRouter.use(isUserVerified);
 viewRouter.route("/logout").get(logout);
@@ -21,6 +23,8 @@ viewRouter.route("/login").get(getLoginPage);
 viewRouter.route("/updateUser").get(protectRoute, getUpdateUserPage);
 viewRouter.route("/signup").get(getSignupPage);
 viewRouter.route("/plans/:id").get(getPlansDetailsPage);
+viewRouter.route("/forgetPassword").get(protectRoute, getForgetPassswordPage);
+viewRouter.route("/resetPassword").get(protectRoute, getresetPassswordPage);
 viewRouter.route("").get(getHomePage);
 
 module.exports = viewRouter;
