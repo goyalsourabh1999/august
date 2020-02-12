@@ -311,9 +311,10 @@ cite {
   justify-content: space-evenly;
 }
 .bg-video__content {
-  width: 40%;
+  width: 30%;
+  height: 100%;
   position: relative;
-  top: -6rem;
+  top: -2rem;
 }
 form {
   width: 50%;
@@ -354,7 +355,7 @@ input[type="checkbox"] {
 form {
   transform: scale(0.8);
   position: relative;
-  top: -5rem;
+  top: 0rem;
 }
 .checkbox-conditions {
   margin-left: 1rem;
