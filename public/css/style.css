@@ -326,7 +326,7 @@ form {
 }
 input[type="text"],
 input[type="email"],
-input[type="password"]
+input[type="password"],
 select,
 textarea {
   border: 2px solid grey;
@@ -397,13 +397,11 @@ footer {
   margin-top: 2%;
   font-size: 140%;
 }
-
 .img-Size{
   height: 25vh;
   width:10vw;
   border-radius: 50%;
 }
-
 .signup-parent{
   display: flex;
   justify-content: space-evenly;
