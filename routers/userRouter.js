@@ -3,8 +3,6 @@ const multer = require("multer");
 const path = require("path");
 // server => upload path
 
-// var upload = multer({});
-// console.log(__dirname);
 var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + ".jpeg")
@@ -25,6 +23,7 @@ const fileFilter = function (req, file, cb) {
     console.log(err);
   }
 }
+
 var upload = multer({
   storage: storage,
   fileFilter
@@ -37,7 +36,6 @@ const {
   protectRoute
 } = require("../controllers/authController");
 const { getUser, updateUser } = require("../controllers/userController");
-// req.body=> photo=>req.file=> changes
 userRouter
   .route("/updateUser/:id")
   .post(protectRoute, upload.single("photo"), updateUser);

@@ -7,12 +7,12 @@ module.exports = async function (options) {
             host: "smtp.gmail.com",
             auth: {
                 user: "pepcodingdev@gmail.com",
-                pass: "apppassword"
+                pass: process.env.AppPassword
             }
         });
         // 2. Email options
         const emailOptions = {
-            from: '"Jasbir" <admin@origami.com>', // sender address
+            from: '"Jasbir" <admin@everyone.com>', // sender address
             to: options.to, // list of receivers
             subject: options.subject, // Subject line
         

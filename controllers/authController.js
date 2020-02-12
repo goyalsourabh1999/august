@@ -13,6 +13,12 @@ module.exports.signup = async function(req, res) {
     // 2.create Token
     const token = await jwt.sign({ id }, KEY);
     // 3. Send the token in res.cookies
+    const options={
+      to:user.email,
+      subject:`Welcome to the Delhicious Family`,
+      html:`<h1>Welcome to the Delhicious Family </h1><p>Hope to you around</p>`
+    }
+    await email(options);
     res.cookie("jwt", token, { httpOnly: true });
     res.json({
       success: "user successfully signed up"
