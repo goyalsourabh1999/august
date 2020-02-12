@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
-module.exports = async function (options) {
+module.exports = async function (optio
+    ns) {
     // 1.  create  setting
     try {
         var transport = nodemailer.createTransport({
@@ -16,7 +17,7 @@ module.exports = async function (options) {
             to: options.to, // list of receivers
             subject: options.subject, // Subject line
         
-            html: option.html // html body
+            html: options.html // html body
         };
         // "<h1>Reset Token:</h1><p>token</p>"
         // 3. Send your mail
