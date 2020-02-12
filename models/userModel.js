@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
     type: "String",
     default: "default.jpeg"
   },
-  token: String,
+  ResetToken: String,
   userBookedPlansId: {
     type: String
   }
@@ -67,7 +67,7 @@ userSchema.pre("save", function () {
 userSchema.method("generateToken", function () {
   // DB
   const token = crypto.randomBytes(32).toString("hex");
-  this.token = token;
+  this.ResetToken = token;
 
   // email
   // console.log(this);

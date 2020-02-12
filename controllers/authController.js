@@ -13,8 +13,7 @@ module.exports.signup = async function(req, res) {
     // 3. Send the token
     res.cookie("jwt", token, { httpOnly: true });
     res.json({
-      user,
-      token
+      success: "user successfully signed up"
     });
   } catch (err) {
     console.log(err);
@@ -81,18 +80,16 @@ module.exports.protectRoute = async function(req, res, next) {
   try {
     if (req.cookies && req.cookies.jwt) {
       // 2. Verfiy the token{
-        
+
       const token = req.cookies.jwt;
-     
+
       const ans = await jwt.verify(token, KEY);
       if (ans) {
         const user = await userModel.findById(ans.id);
         req.user = user;
         next();
       } else {
-        res.json({
-          data: "You are not logged In"
-        });
+        res.redirect("/login");
       }
     } else {
       // res.json({
@@ -112,13 +109,12 @@ module.exports.forgetPassword = async function(req, res) {
       const { email } = req.body;
       const user = await userModel.findOne({ email });
       const token = user.generateToken();
-
       user.save();
       res.json({ token, user });
     } else {
       res.json({
         user,
-        data: "Please enter youe email"
+        data: "Please enter your email"
       });
     }
   } catch (err) {

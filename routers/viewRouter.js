@@ -10,7 +10,7 @@ const {
 const {
   protectRoute,
   isUserVerified,
-  logout
+  logout,getSignupPage
 } = require("../controllers/authController");
 viewRouter.use(isUserVerified);
 viewRouter.route("/logout").get(logout);
@@ -18,6 +18,7 @@ viewRouter.route("/plans").get(protectRoute, getPlansPage);
 viewRouter.route("/me").get(protectRoute, getProfilePage);
 viewRouter.route("/login").get(getLoginPage);
 viewRouter.route("/updateUser").get(protectRoute, getUpdateUserPage);
+viewRouter.route("/signup").get(getSignupPage);
 viewRouter.route("/plans/:id").get(getPlansDetailsPage);
 viewRouter.route("").get(getHomePage);
 
