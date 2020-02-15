@@ -3,7 +3,7 @@ const login = document.querySelector(".login");
 const signup = document.querySelector(".signup");
 const uploadPlanImages = document.querySelector(".uploadPlanImages");
 const bookPlan = document.querySelector(".bookPlan");
-const stripe = Stripe("pk_test_ZN4f6Z1tmqHyaKzHblk84y2K00unLLJgRr");
+const stripe = Stripe("sk_test_FyA6JJ2JdbyeJKzNwsIZbFJH00BhoYS2rK");
 const forgetPassword = document.querySelector(".forgetPassword");
 const resetPassword = document.querySelector(".resetPassword");
 
